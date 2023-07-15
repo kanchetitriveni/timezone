@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Timezone Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+ background-image: url("img1.jpg");
+ background-size:cover;
+ 
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+ 
+    }
+
+    #result {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1 style='color:purple'>Timezone Converter</h1>
+ 
+  <label for="fromTimezone">From Timezone:</label>
+  <select id="fromTimezone">
+    <option value="America/New_York">New_York</option>
+    <option value="America/Chicago">Chicago</option>
+    <option value="America/Denver">Denver</option>
+    <option value="America/Los_Angeles">Los_Angeles</option>
+<option value="Europe/London">London</option>
+    <option value="Europe/Paris">Paris</option>
+    <option value="Asia/Tokyo">Tokyo</option>
+<option value="Asia/Dubai">Dubai</option>
+  <option value="Australia/Sydney">Sydney</option>
+  <option value="Pacific/Auckland">Auckland</option>
+   <option value="Asia/Kolkata">India</option>
+   <option value="Australia/Sydney">Sydney</option>
+  <option value="Asia/Shanghai">China</option>
+  <option value="Asia/Singapore">Singapore</option>
+  <option value="Asia/Seoul">Seoul Time</option>
+   <option value="Australia/Melbourne">Melbourne</option>
+  <option value="Australia/Brisbane">Brisbane</option>
+  <option value="Africa/Johannesburg">South Africa</option>
+   <option value="Asia/Karachi">Pakistan</option>
+    <!-- Add more timezone options here -->
+  </select>
+
+  <br>
+
+  <label for="toTimezone">To Timezone:</label>
+  <select id="toTimezone">
+    <option value="America/New_York">New_York</option>
+    <option value="America/Chicago">Chicago</option>
+    <option value="America/Denver">Denver</option>
+    <option value="America/Los_Angeles">Los_Angeles</option>
+<option value="Europe/London">London</option>
+    <option value="Europe/Paris">Paris</option>
+    <option value="Asia/Tokyo">Tokyo</option>
+<option value="Asia/Dubai">Dubai</option>
+  <option value="Australia/Sydney">Sydney</option>
+  <option value="Pacific/Auckland">Auckland</option>
+   <option value="Asia/Kolkata">India</option>
+   <option value="Australia/Sydney">Sydney</option>
+  <option value="Asia/Shanghai">China</option>
+  <option value="Asia/Singapore">Singapore</option>
+  <option value="Asia/Seoul">Seoul</option>
+   <option value="Australia/Melbourne">Melbourne</option>
+  <option value="Australia/Brisbane">Brisbane</option>
+  <option value="Africa/Johannesburg">South Africa</option>
+   <option value="Asia/Karachi">Pakistan</option>
+    <!-- Add more timezone options here -->
+  </select>
+
+  <br>
+
+  <label for="time">Time:</label>
+  <input type="datetime-local" id="time">
+
+  <br>
+
+  <button style="background-color:pink" onclick="convertTime()">Convert</button>
+<b><div style="color:blue" id="result"></div></b>
+
+  <script>
+    function convertTime() {
+      var fromTimezone = document.getElementById("fromTimezone").value;
+      var toTimezone = document.getElementById("toTimezone").value;
+      var time = new Date(document.getElementById("time").value);
+
+      var apiKey = "I3RFVQUXNM59"; // Replace with your TimeZoneDB API key
+
+      var url = `https://api.timezonedb.com/v2.1/convert-time-zone?key=${apiKey}&format=json&from=${fromTimezone}&to=${toTimezone}&time=${time.toISOString()}`;
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          var convertedTime = new Date(data.toTimestamp * 1000);
+          var resultElement = document.getElementById("result");
+          resultElement.innerHTML = `Converted Time: ${convertedTime}`;
+        })
+        .catch(error => {
+          console.log(error);
+          var resultElement = document.getElementById("result");
+          resultElement.innerHTML = "An error occurred while converting the time.";
+        });
+    }
+  </script>
+</body>
+</html>
